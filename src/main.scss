@@ -1,0 +1,24 @@
+@import 'helpers';
+@import 'mixins';
+
+body {
+  font-size: getPart(200, 5);
+  background-color: getDarken(#fff);
+  @include round(100px);
+}
+
+.header {
+  @include triangle('up');
+}
+
+@for $i from 1 through 10 {
+  .width#{$i} {
+    width: $i * 10;
+  }
+}
+
+@for $i from 1 through 20 {
+  li:nth-child(#{$i}) {
+    background: rgb(random(255), random(255), random(255));
+  }
+}
