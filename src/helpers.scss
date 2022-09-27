@@ -1,0 +1,7 @@
+@function getPart($number, $percent) {
+  @return $number / 100 * $percent + px;
+}
+
+@function getDarken($color) {
+  @return darken($color, 20%);
+}

@@ -1,0 +1,51 @@
+@mixin round($angle: 10px) {
+  border-radius: $angle;
+}
+
+@mixin triangle($direction: 'up') {
+  position: relative;
+
+  @if $direction == 'up' {
+    ::after {
+      content: ''; 
+      position: absolute; 
+      left: 50%;
+      bottom: -300px;
+      border: 50px solid transparent; 
+      border-bottom: 50px solid green;
+      }
+  }
+
+  @if $direction == 'left' {
+    ::after {
+      content: ''; 
+      position: absolute; 
+      left: 50%;
+      bottom: -300px;
+      border: 50px solid transparent; 
+      border-right: 50px solid green; 
+      }
+  }
+  
+  @if $direction == 'down' {
+    ::after {
+      content: ''; 
+      position: absolute; 
+      left: 50%;
+      bottom: -300px;
+      border: 50px solid transparent; 
+      border-top: 50px solid green; 
+      }
+  }
+
+  @if $direction == 'right' {
+    ::after {
+      content: ''; 
+      position: absolute; 
+      left: 50%;
+      bottom: -300px;
+      border: 50px solid transparent;
+      border-left: 50px solid green;
+      }
+  }
+}
