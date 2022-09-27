@@ -8,12 +8,12 @@ body {
 }
 
 .header {
-  @include triangle('up');
+  @include triangle;
 }
 
 @for $i from 1 through 10 {
   .width#{$i} {
-    width: $i * 10;
+    width: $i * 10%;
   }
 }
 

@@ -2,7 +2,7 @@
   border-radius: $angle;
 }
 
-@mixin triangle($direction) {
+@mixin triangle($direction: 'up') {
   position: relative;
 
   @if $direction == 'up' {
