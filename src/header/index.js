@@ -1,6 +1,6 @@
-const builder = require('../elementBulder');
-require('./header.css');
+import builder from '../elementBulder';
+import './header.css';
 
 const createHeader = () => builder('header', '<a href="#">Logo</a>', 'header')
 
-module.exports = createHeader;
+export default createHeader;
