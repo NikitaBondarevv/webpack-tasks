@@ -1,4 +1,4 @@
-const $ = require('jquery')
+import $ from 'jquery';
 
 const elementBuilder = (tag = 'div', content = '', className = 'box') => {
   const element = document.createElement(tag);
@@ -8,4 +8,4 @@ const elementBuilder = (tag = 'div', content = '', className = 'box') => {
   return element;
 };
 
-module.exports = elementBuilder;
+export default elementBuilder;
