@@ -2,23 +2,16 @@ import { showMessage, getDay, getAdultUsers, getRandomUsers} from './main';
 import { days, defaultProduct, money, users } from './constants';
 
 import { expect } from 'chai';
+import sinon from 'sinon';
 import chai from 'chai';
 
 describe('showMessage()', () => {
   it('should work alert with correct text', () => {
-    const originAlert = alert;
+    const stub = sinon.stub(window, 'alert');
 
-    window.alert = (text) => {
-      window.alert.wasCalled = true;
-      window.alert.argument = text;
-    }
+    showMessage();
 
-    showMessage('Hello');
-    
-    expect(alert.wasCalled).to.be.true;
-    expect(alert.argument).to.equal('Hello');
-
-    window.alert = originAlert;
+    expect(stub.called).to.be.true;
   })
 })
 
@@ -40,19 +33,26 @@ describe('getAdultUsers()', () => {
   })
 })
 
-const length = users.length;
-const middleUser = Math.round(length / 2);
-
 describe('getRandomUsers()', () => {
+  const length = users.length;
+  const middleUser = Math.round(length / 2);
+  const originRandom = Math.random;
+  const firstHalfOfUsers = users.slice(0, middleUser);
+  const secondHalfOfUsers = users.slice(middleUser, length);
+
   it('should return false if the argument is not transferred', () => {
     expect(getRandomUsers()).to.be.false;
   })
 
-  it('should return the array of its length to divide by 2', () => {
-    expect(JSON.stringify(getRandomUsers(users))).to.equal(JSON.stringify(users.slice(0, middleUser)));
+  it('should return first half of users if Math.random is greater than 0.5', () => {
+    Math.random = () => 0.6;
+
+    expect(getRandomUsers(users)).to.deep.equal(firstHalfOfUsers)
   })
 
-  it('Should return the array from the middle to the end', () => {
-    expect(JSON.stringify(getRandomUsers(users))).to.equal(JSON.stringify(users.slice(middleUser, length)));
+  it('should return the second half of the Math.random if the numb is less than 0.5', () => {
+    Math.random = () => 0.5;
+
+    expect(getRandomUsers(users)).to.deep.equal(secondHalfOfUsers);
   })
 })
