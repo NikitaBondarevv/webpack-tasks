@@ -1,4 +1,4 @@
-import { showMessage, getDay, getAdultUsers, getRandomUsers} from './main';
+import { showMessage, getDay, getAdultUsers, getRandomUsers, Product} from './main';
 import { days, defaultProduct, money, users } from './constants';
 
 import { expect } from 'chai';
@@ -7,11 +7,12 @@ import chai from 'chai';
 
 describe('showMessage()', () => {
   it('should work alert with correct text', () => {
-    const stub = sinon.stub(window, 'alert');
+    const fakeAlert = sinon.stub(window, 'alert');
+    const testText = 'test';
 
-    showMessage();
+    showMessage(testText);
 
-    expect(stub.called).to.be.true;
+    expect(fakeAlert.args[0][0]).to.equal(testText);
   })
 })
 
@@ -54,5 +55,42 @@ describe('getRandomUsers()', () => {
     stub.returns(0.5);
 
     expect(getRandomUsers(users)).to.deep.equal(secondHalfOfUsers);
+  })
+})
+
+
+describe('class Product', () => {
+  const productNoArguments = new Product();
+  const product = new Product('Samsung', 5);
+
+  it('should default to the title and price property if the class was initialized with no arguments', () => {
+    expect(productNoArguments.title).to.equal(defaultProduct);
+    expect(productNoArguments.price).to.equal(10);
+  })
+
+  it('the value in title and price should be assigned if the class was initialized with arguments', () => {
+    expect(product.title).to.equal('Samsung');
+    expect(product.price).to.equal(5);
+  })
+
+  it('getPrice() method should return price + money', () => {
+    expect(productNoArguments.getPrice()).to.equal(`10${money}`);
+    expect(product.getPrice()).to.equal(`5${money}`);
+  })
+
+  it('should throw an error if the method was called without an argument', () => {
+    expect(product.setPrice).to.throw(Error, 'Price should be defined');
+  })
+
+  it('should change the price if the value is greater than 10', () => {
+    product.setPrice(11);
+
+    expect(product.price).to.equal(11);
+  })
+
+  it('should not change the price if the value is less than 10', () => {
+    product.setPrice(9);
+
+    expect(product.price).to.not.equal(9);
   })
 })
