@@ -36,22 +36,22 @@ describe('getAdultUsers()', () => {
 describe('getRandomUsers()', () => {
   const length = users.length;
   const middleUser = Math.round(length / 2);
-  const originRandom = Math.random;
   const firstHalfOfUsers = users.slice(0, middleUser);
   const secondHalfOfUsers = users.slice(middleUser, length);
+  const stub = sinon.stub(Math, 'random');
 
   it('should return false if the argument is not transferred', () => {
     expect(getRandomUsers()).to.be.false;
   })
 
   it('should return first half of users if Math.random is greater than 0.5', () => {
-    Math.random = () => 0.6;
+    stub.returns(0.6);
 
-    expect(getRandomUsers(users)).to.deep.equal(firstHalfOfUsers)
+    expect(getRandomUsers(users)).to.deep.equal(firstHalfOfUsers);
   })
 
   it('should return the second half of the Math.random if the numb is less than 0.5', () => {
-    Math.random = () => 0.5;
+    stub.returns(0.5);
 
     expect(getRandomUsers(users)).to.deep.equal(secondHalfOfUsers);
   })

@@ -12,7 +12,7 @@ export const getAdultUsers = (users = []) => users.filter(user => user.age > 18)
 getAdultUsers(users);
 
 export const getRandomUsers = (users) => {
-  const numb = Math.random;
+  const numb = Math.random();
 
   if (!users) {
     return false;
