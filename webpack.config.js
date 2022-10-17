@@ -10,6 +10,7 @@ module.exports = {
     path: path.resolve(__dirname, 'public')
   },
   mode: 'development',
+  devtool: "source-map",
   module: {
     rules: [
       {
@@ -34,8 +35,7 @@ module.exports = {
   },
   plugins: [
     new HTMLPlugin(),
-    // new MiniCssExtractPlugin({ filename: 'styles-[hash].css' })
-    new MiniCssExtractPlugin({ filename: `styles-${Date.now()}.css` })
+    new MiniCssExtractPlugin({ filename: 'styles.css'})
   ],
   optimization: {
     splitChunks: {
@@ -49,5 +49,9 @@ module.exports = {
         return moduleFileName.replace(/\.\w+$/, '');
       },
     }
+  },
+  devServer: {
+    port: 9000,
+    hot: true,
   }
 };
